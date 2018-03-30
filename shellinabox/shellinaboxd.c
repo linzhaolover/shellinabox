@@ -70,6 +70,8 @@
 #include <sys/prctl.h>
 #endif
 
+#include <time.h>
+
 #include "libhttp/http.h"
 #include "libhttp/server.h"
 #include "logging/logging.h"
@@ -474,6 +476,7 @@ static int dataHandler(HttpConnection *http, struct Service *service,
         // Re-enable input on the child's pty
         serverConnectionSetEvents(session->server, session->connection,
                                   session->pty, POLLIN);
+        usleep(300000);//add linzhbj for fast closed on nginx
       }
     }
     return HTTP_DONE;
